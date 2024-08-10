@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
+@RequestMapping("/api/functionjava")
 public class BaseController {
 
     @GetMapping(value={"", "/"})
