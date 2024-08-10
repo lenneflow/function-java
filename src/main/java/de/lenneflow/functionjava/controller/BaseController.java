@@ -2,6 +2,7 @@ package de.lenneflow.functionjava.controller;
 
 import org.springframework.web.bind.annotation.*;
 
+import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,16 +14,17 @@ public class BaseController {
         return "Welcome to the Java Function Simulator!";
     }
 
-    @PostMapping(value={ "/process/{timeInSeconds}"})
-    public Map<String, Object> processFunction(@RequestBody Map<String, Object> inputData, @PathVariable int timeInSeconds) {
+    @PostMapping(value={ "/process"})
+    public Map<String, Object> processFunction(@RequestBody Map<String, Object> inputData) {
         Map<String, Object> outputData = new HashMap<>();
-        System.out.println(String.format("Start {0} seconds processing of following input\n{1}\n\n", timeInSeconds, inputData));
+        int processTimeInMillis = (int) inputData.get("processTimeInMillis");
+        System.out.println(MessageFormat.format("Start {0} seconds processing of following input\n{1}\n\n", processTimeInMillis/1000, inputData));
         try {
-            Thread.sleep(timeInSeconds*1000);
+            Thread.sleep(processTimeInMillis);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        outputData.put("processTime", timeInSeconds);
+        outputData.put("processTimeInSeconds", processTimeInMillis/1000);
         System.out.println("successfully processed");
         return outputData;
     }
