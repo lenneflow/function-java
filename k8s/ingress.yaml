@@ -8,7 +8,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: workermaster
+    - host: lenneflowworker.ganemtore.bf
       http:
         paths:
           - path: /api/functionjava
