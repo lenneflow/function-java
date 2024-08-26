@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.text.MessageFormat;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 @RestController
@@ -28,5 +29,21 @@ public class BaseController {
         outputData.put("processTimeInSeconds", processTimeInMillis/1000);
         System.out.println("successfully processed");
         return outputData;
+    }
+
+    @PostMapping(value={ "/get-country"})
+    public Map<String, Object> getCountry(@RequestBody Map<String, Object> inputData) {
+        Map<String, Object> outputData = new HashMap<>();
+        try {
+
+            String code = (String) inputData.get("countryCode");
+            Locale loc = new Locale("",code);
+            outputData.put("country", loc.getDisplayCountry(loc));
+            return outputData;
+        } catch (Exception e) {
+            return (Map<String, Object>) outputData.put("country", new String(""));
+        }
+
+
     }
 }

@@ -1,1 +1,2 @@
-kubectl apply -f k8s/ -n lenneflow
+kubectl create namespace lenneflow
+kubectl apply -n lenneflow -f k8s/
